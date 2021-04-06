@@ -1,0 +1,21 @@
+arch:
+  - arm64
+
+services:
+  - docker
+
+before_success:
+  - make build-prod
+
+script:
+  # run tests
+  # if tests pass then deploy
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  on:
+    branch: production
+
+after_deploy:
+  # notify me on slack
