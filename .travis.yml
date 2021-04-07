@@ -1,21 +1,21 @@
-arch:
-  - arm64
+sudo: required
 
 services:
   - docker
 
-before_success:
-  - make build-prod
-
 script:
-  # run tests
-  # if tests pass then deploy
+  - make test
+  - make rmi
+  - make build-prod
 
 deploy:
   provider: heroku
   api_key: $HEROKU_API_KEY
+  app: tinfa-travis-ci
   on:
     branch: production
 
-after_deploy:
-  # notify me on slack
+notifications:
+  email: false
+  slack:
+    if: branch = production
