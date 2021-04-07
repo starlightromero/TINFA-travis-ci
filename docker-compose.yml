@@ -6,8 +6,6 @@ services:
     image: mongo
     volumes:
       - data:/data/db
-    env_file:
-      - .env
     networks:
       - financial-network
 
