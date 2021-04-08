@@ -17,7 +17,5 @@ services:
       - 3000:3000
     environment:
       - MONGODB_URI=${MONGODB_URI}
-    networks:
-      - financial-network
     depends_on:
       - mongo
