@@ -14,7 +14,7 @@ reload:
 				docker-compose down && docker-compose -f docker-compose.dev.yml up
 				
 build-travis :
-				docker-compose -f docker-compose.travis.yml build --force-rm --no-cache
+				docker-compose -f docker-compose.travis.yml build
 				
 build-prod:
 				docker-compose build --force-rm --no-cache
