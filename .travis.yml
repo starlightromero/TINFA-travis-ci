@@ -1,4 +1,6 @@
-sudo: required
+os: linux
+
+dist: focal
 
 language: node_js
 
@@ -10,18 +12,19 @@ services:
 before_install:
   # update npm
   - npm i -g npm@7.8.0
-  # update docker
+  # install docker
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   - sudo apt-get update
   - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-  # update docker-compose
+  # install docker-compose
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/1.4.1/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   # install heroku
   - curl https://cli-assets.heroku.com/install.sh | sh
+  - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
 
 script:
   - docker build -t tinfa-travis-ci/node .
