@@ -39,6 +39,4 @@ deploy:
     branch: production
 
 notifications:
-  email: false
-  slack:
-    if: branch = production
+  slack: $SLACK_CHANNEL
