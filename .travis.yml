@@ -10,7 +10,9 @@ services:
   - docker
 
 notifications:
-  slack: $SLACK_CHANNEL
+  slack:
+    rooms:
+      - $SLACK_WORKSPACE:$SLACK_CHANNEL
 
 before_install:
   # update npm
