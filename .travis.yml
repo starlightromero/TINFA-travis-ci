@@ -33,19 +33,21 @@ before_install:
   - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
 
 jobs:
-  - stage: build
-    if: branch = production
-    name: 'Build docker image'
-    script:
-      - docker build -t tinfa-travis-ci/node .
-      - docker tag tinfa-travis-ci/node registry.heroku.com/$HEROKU_APP/web
-  - stage: deploy
-    if: branch = production
-    name: 'Deploy to Heroku'
-    script: skip
-    provider: script
+  include:
+    - stage: build
+      if: branch = production
+      name: 'Build docker image'
       script:
-        docker push tinfa-travis-ci/node; docker push registry.heroku.com/$HEROKU_APP/web;
-        heroku container:release web --app $HEROKU_APP
-      on:
-        branch: production
+        - docker build -t tinfa-travis-ci/node .
+        - docker tag tinfa-travis-ci/node registry.heroku.com/$HEROKU_APP/web
+    - stage: deploy
+      if: branch = production
+      name: 'Deploy to Heroku'
+      script: skip
+      deploy:
+        provider: script
+        script:
+          docker push tinfa-travis-ci/node; docker push registry.heroku.com/$HEROKU_APP/web;
+          heroku container:release web --app $HEROKU_APP
+        on:
+          branch: production
