@@ -35,13 +35,13 @@ before_install:
 jobs:
   - stage: Install Dependencies
     script: npm ci
-  - stage: Test
-    node_js:
-      - 10
-      - 12
-      - 14
-      - 15
-    script: npm test
+  # - stage: Test
+  #   node_js:
+  #     - 10
+  #     - 12
+  #     - 14
+  #     - 15
+  #   script: npm test
   - stage: Build
     script:
       - docker build -t tinfa-travis-ci/node .
