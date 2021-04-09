@@ -13,6 +13,13 @@ notifications:
   slack:
     secure: JXWst73pN8EVGnxL5Gkg6w3lfkW8H/vkyGSIJHwgMzWHJvnykVuZF0WIFn3pCUgYIeSiyormB6jKNtE1mb3uqyLTy85/aDzH2AMubRKuzkciVWjPc4nOxO2NytIiN1AvZMdkNpacT9bdrgSInt0HNf7MQvWSvc2BefVbyWURXfPpao13E9zvp3dGOV/Y13EkEuJROf8B0zqhdMcf2rbKpkQzJxJ0Pj01bQePtGBpwBdHFev6hKj2Pq5JJRQP+oL72WCwqIQAuMmCuf4guTqKady2jgzH1iA4FblsriekpAvaEJqq02wFMQRkjAZ56J2z6alVFZdUK9eSKrQUYCb/eM0Y4/6j5m5LRzEGKZxyYNSgefvnBaxpdaqm9uxNqyeurunR3pb32bSNgtpd2q7LsiVv536ika9Hs5QHUGLh4xPJvtpuiB2ao4BddMCU8QHvAmTqlQC7Qfq9Liq7QMyGKrYWHjXJh7lfv+I4AvnLZWXO8tYfj1+8pNoyg0sAcQD/K95gNJ+RpbjVbf9B1NvDB9EeDmDvw73Q7sLhtPoQUDblOapBuq/7hZll/K9EbVqFz6MJVGK9dHUBIhTYbjSJPt3yeFFfHMcR/7+L/k/cBTUt+hcjq5E0ldJan2Ro8v0otREcoTX9mfGHnD6zY14SCi4GamIRfHWrVaANUfZAOEc=
 
+stages:
+  - Install Dependencies
+  - name: Build
+    if: branch = production
+  - name: Deploy
+    if: branch = production
+
 env:
   global:
     secure: Xp9Uc55NzbA0BIxZKmENHya2FtJjWK52CytppGT4Eby+g4eU5UrtbHLoPUa1RMTCa6FA3qjZMzIXc7RI7XYfELw0t55LRFhL8j6pFNm7wWFsmMTL3ae4XtuvQT+v+akMO5bLzqbz2HQEo9KKnoSFaO4IL9NeYaO+Wwj3gLWNDaBUQ1DWSHOzp6amg7534WbbyealnmnCcr60SkiAUN0c1TdpmE2+KzL2Lz1hl7yhNqAnbAZuiQOIouns8rt7ppW5XzV4Z/O9I9QcMPsU1YATSRZQFewbpBP38Sc09yh7sod8PlDu7J31X4KgDUBJUo09ATGPAMKS9Ttx6aF6g4orKKJn1TASKd1h3r3+9+ST37ymTED6p/r4nxMxhWKiE0e6s41n4J2AuxuZwywa1sgNLQ3wVdDwIJbPU0aPcVo8VdVq4veNxbQYVvSN5Oa+8UyOLOVpjWFtW0JbwE6xtJyPdYVEFTTfeqgvjtyrPvWhX2UhXq7u+XbkFx6n5YymtRHLg26CEYZ5VFGrTr8m1REifXWQyh0vIEeFSvlbZS0tnkUZvraVQH2Qp9q2M/0E39IcvoJ0EPQ7c+eUrZT9i32oIgH/4EWgmt0FoVMTIQIRoPlye2PYzix+AIbD7/imA9o1oZe3kIpzL1UWnsu9sfu/sLkrW0bF9hq+iLbmvJmoeFU=
@@ -33,12 +40,6 @@ before_install:
   - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
 
 jobs:
-  stages:
-    - Install Dependencies
-    - name: Build
-      if: branch = production
-    - name: Deploy
-      if: branch = production
   - stage: Install Dependencies
     script: npm ci
   - stage: Build
