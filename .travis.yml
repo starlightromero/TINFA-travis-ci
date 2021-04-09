@@ -9,6 +9,9 @@ node_js: lts/*
 services:
   - docker
 
+notifications:
+  slack: $SLACK_CHANNEL
+
 before_install:
   # update npm
   - npm i -g npm@7.8.0
@@ -26,17 +29,23 @@ before_install:
   - curl https://cli-assets.heroku.com/install.sh | sh
   - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
 
-script:
-  - docker build -t tinfa-travis-ci/node .
-  - docker tag tinfa-travis-ci/node registry.heroku.com/$HEROKU_APP/web
-
-deploy:
-  provider: script
-  script: docker push atinfa-travis-ci/node;
-    docker push registry.heroku.com/$HEROKU_APP/web;
-    heroku container:release web --app $HEROKU_APP
-  on:
-    branch: production
-
-notifications:
-  slack: $SLACK_CHANNEL
+jobs:
+  - stage: Test
+    node_js:
+      - 10
+      - 12
+      - 14
+      - 15
+    script: npm test
+  - stage: Build
+    script:
+      - docker build -t tinfa-travis-ci/node .
+      - docker tag tinfa-travis-ci/node registry.heroku.com/$HEROKU_APP/web
+  - stage: Deploy
+    deploy:
+      provider: script
+      script: docker push atinfa-travis-ci/node;
+        docker push registry.heroku.com/$HEROKU_APP/web;
+        heroku container:release web --app $HEROKU_APP
+      on:
+        branch: production
