@@ -34,6 +34,15 @@ before_install:
 
 jobs:
   include:
+    - stage: Install Dependencies
+      script: npm ci
+    - stage: Test
+      node_js:
+        - 10
+        - 12
+        - 14
+        - 15
+      script: npm test
     - stage: build
       if: branch = production
       name: 'Build docker image'
