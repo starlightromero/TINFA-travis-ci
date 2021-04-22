@@ -32,8 +32,8 @@ before_install:
 
 jobs:
   include:
-    - stage: start
-      script: echo "START"
+    - stage: set environment variables
+      script: echo $MONGODB_URI > .env
     - stage: Install Dependencies
       script: npm ci
     - stage: Test
