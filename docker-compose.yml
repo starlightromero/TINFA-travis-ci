@@ -1,14 +1,5 @@
 version: '3'
 services:
-  mongo:
-    restart: always
-    container_name: mongo
-    image: mongo
-    volumes:
-      - data:/data/db
-    networks:
-      - financial-network
-
   node:
     restart: always
     build:
