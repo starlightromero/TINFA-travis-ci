@@ -33,7 +33,7 @@ before_install:
 
 jobs:
   include:
-    - stage: Start
+    - stage: start
       script: echo "START"
     - stage: Install Dependencies
       script: npm ci
