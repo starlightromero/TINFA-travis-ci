@@ -32,17 +32,17 @@ before_install:
 
 jobs:
   include:
-    - stage: set environment variables
-      script: echo $MONGODB_URI > .env
-    - stage: Install Dependencies
+    - stage: install dependencies
       script: npm ci
-    - stage: Test
+    - stage: test
       node_js:
         - 10
         - 12
         - 14
         - 15
-      script: npm test
+      script: |
+        echo $MONGODB_URI > .env
+        npm test
     - stage: build
       if: branch = production
       name: 'Build docker image'
