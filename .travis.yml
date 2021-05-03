@@ -18,29 +18,29 @@ env:
     secure: Xp9Uc55NzbA0BIxZKmENHya2FtJjWK52CytppGT4Eby+g4eU5UrtbHLoPUa1RMTCa6FA3qjZMzIXc7RI7XYfELw0t55LRFhL8j6pFNm7wWFsmMTL3ae4XtuvQT+v+akMO5bLzqbz2HQEo9KKnoSFaO4IL9NeYaO+Wwj3gLWNDaBUQ1DWSHOzp6amg7534WbbyealnmnCcr60SkiAUN0c1TdpmE2+KzL2Lz1hl7yhNqAnbAZuiQOIouns8rt7ppW5XzV4Z/O9I9QcMPsU1YATSRZQFewbpBP38Sc09yh7sod8PlDu7J31X4KgDUBJUo09ATGPAMKS9Ttx6aF6g4orKKJn1TASKd1h3r3+9+ST37ymTED6p/r4nxMxhWKiE0e6s41n4J2AuxuZwywa1sgNLQ3wVdDwIJbPU0aPcVo8VdVq4veNxbQYVvSN5Oa+8UyOLOVpjWFtW0JbwE6xtJyPdYVEFTTfeqgvjtyrPvWhX2UhXq7u+XbkFx6n5YymtRHLg26CEYZ5VFGrTr8m1REifXWQyh0vIEeFSvlbZS0tnkUZvraVQH2Qp9q2M/0E39IcvoJ0EPQ7c+eUrZT9i32oIgH/4EWgmt0FoVMTIQIRoPlye2PYzix+AIbD7/imA9o1oZe3kIpzL1UWnsu9sfu/sLkrW0bF9hq+iLbmvJmoeFU=
 
 before_install:
-  - npm i -g npm@7.8.0
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - sudo apt-get update
-  # - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/1.4.1/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - curl https://cli-assets.heroku.com/install.sh | sh
-  - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+  # - npm i -g npm@7.8.0
+  # - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  # - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  # - sudo apt-get update
+  # # - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+  # - sudo rm /usr/local/bin/docker-compose
+  # - curl -L https://github.com/docker/compose/releases/download/1.4.1/docker-compose-`uname -s`-`uname -m` > docker-compose
+  # - chmod +x docker-compose
+  # - sudo mv docker-compose /usr/local/bin
+  # - curl https://cli-assets.heroku.com/install.sh | sh
+  # - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
 
 jobs:
   include:
-    - stage: install dependencies
-      script: npm ci
+    # - stage: install dependencies
+    #   script: npm ci
     - stage: test
       node_js:
         - 10
         - 12
         - 14
         - 15
-      script: echo MONGODB_URI > .env && cat .env && npm test
+      script: echo MONGODB_URI=$MONGODB_URI > .env && cat .env #&& npm test
     - stage: build
       if: branch = production
       name: 'Build docker image'
