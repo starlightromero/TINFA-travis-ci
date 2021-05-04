@@ -36,7 +36,7 @@ jobs:
         - 12
         - 14
         - 15
-      script: echo MONGODB_URI && echo $MONGODB_URI && echo ${MONGODB_URI} && echo $$MONGODB_URI && echo $${MONGODB_URI} #&& npm test
+      script: echo MONGODB_URI && echo $$MONGODB_URI && echo $${MONGODB_URI} #&& npm test
     # - stage: build
     #   if: branch = production
     #   name: 'Build docker image'
