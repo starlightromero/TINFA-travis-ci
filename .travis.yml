@@ -36,7 +36,7 @@ jobs:
         - 12
         - 14
         - 15
-      script: echo "MONGODB_URI=$MONGODB_URI" > .env && cat.env #&& npm test
+      script: echo "MONGODB_URI=$MONGODB_URI" > .env && cat .env #&& npm test
     # - stage: build
     #   if: branch = production
     #   name: 'Build docker image'
