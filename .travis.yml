@@ -35,7 +35,7 @@ jobs:
         - 15
       script: 
         - npm test
-    - stage: deploy
+    - stage: build-deploy
       if: branch = production
       name: 'Build and Deploy to Heroku'
       script: skip
