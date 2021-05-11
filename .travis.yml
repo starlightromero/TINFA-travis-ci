@@ -13,7 +13,7 @@ notifications:
   slack:
     secure: JXWst73pN8EVGnxL5Gkg6w3lfkW8H/vkyGSIJHwgMzWHJvnykVuZF0WIFn3pCUgYIeSiyormB6jKNtE1mb3uqyLTy85/aDzH2AMubRKuzkciVWjPc4nOxO2NytIiN1AvZMdkNpacT9bdrgSInt0HNf7MQvWSvc2BefVbyWURXfPpao13E9zvp3dGOV/Y13EkEuJROf8B0zqhdMcf2rbKpkQzJxJ0Pj01bQePtGBpwBdHFev6hKj2Pq5JJRQP+oL72WCwqIQAuMmCuf4guTqKady2jgzH1iA4FblsriekpAvaEJqq02wFMQRkjAZ56J2z6alVFZdUK9eSKrQUYCb/eM0Y4/6j5m5LRzEGKZxyYNSgefvnBaxpdaqm9uxNqyeurunR3pb32bSNgtpd2q7LsiVv536ika9Hs5QHUGLh4xPJvtpuiB2ao4BddMCU8QHvAmTqlQC7Qfq9Liq7QMyGKrYWHjXJh7lfv+I4AvnLZWXO8tYfj1+8pNoyg0sAcQD/K95gNJ+RpbjVbf9B1NvDB9EeDmDvw73Q7sLhtPoQUDblOapBuq/7hZll/K9EbVqFz6MJVGK9dHUBIhTYbjSJPt3yeFFfHMcR/7+L/k/cBTUt+hcjq5E0ldJan2Ro8v0otREcoTX9mfGHnD6zY14SCi4GamIRfHWrVaANUfZAOEc=
 
-before_install:
+# before_install:
   # - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   # - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   # - sudo apt-get update
