@@ -5,6 +5,7 @@ dist: focal
 language: node_js
 
 node_js:
+  - 10
   - 12
   - 14
   - 15
@@ -16,27 +17,14 @@ notifications:
   slack:
     secure: JXWst73pN8EVGnxL5Gkg6w3lfkW8H/vkyGSIJHwgMzWHJvnykVuZF0WIFn3pCUgYIeSiyormB6jKNtE1mb3uqyLTy85/aDzH2AMubRKuzkciVWjPc4nOxO2NytIiN1AvZMdkNpacT9bdrgSInt0HNf7MQvWSvc2BefVbyWURXfPpao13E9zvp3dGOV/Y13EkEuJROf8B0zqhdMcf2rbKpkQzJxJ0Pj01bQePtGBpwBdHFev6hKj2Pq5JJRQP+oL72WCwqIQAuMmCuf4guTqKady2jgzH1iA4FblsriekpAvaEJqq02wFMQRkjAZ56J2z6alVFZdUK9eSKrQUYCb/eM0Y4/6j5m5LRzEGKZxyYNSgefvnBaxpdaqm9uxNqyeurunR3pb32bSNgtpd2q7LsiVv536ika9Hs5QHUGLh4xPJvtpuiB2ao4BddMCU8QHvAmTqlQC7Qfq9Liq7QMyGKrYWHjXJh7lfv+I4AvnLZWXO8tYfj1+8pNoyg0sAcQD/K95gNJ+RpbjVbf9B1NvDB9EeDmDvw73Q7sLhtPoQUDblOapBuq/7hZll/K9EbVqFz6MJVGK9dHUBIhTYbjSJPt3yeFFfHMcR/7+L/k/cBTUt+hcjq5E0ldJan2Ro8v0otREcoTX9mfGHnD6zY14SCi4GamIRfHWrVaANUfZAOEc=
 
-jobs:
-  include:
-    - stage: test
-      node_js:
-        - 12
-        - 14
-        - 15
-      script:
-        - npm test
-    - stage: build-deploy
-      if: branch = production
-      name: 'Build and Deploy to Heroku'
-      script: skip
-      deploy:
-        provider: script
-        script:
-          curl https://cli-assets.heroku.com/install.sh | sh;
-          docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com;
-          docker build -t tinfa-travis-ci/node .;
-          docker tag tinfa-travis-ci/node registry.heroku.com/$HEROKU_APP/web;
-          docker push tinfa-travis-ci/node; docker push registry.heroku.com/$HEROKU_APP/web;
-          heroku container:release web --app $HEROKU_APP
-        on:
-          branch: production
+script:
+  - npm test
+  - docker build -t tinfa-travis-ci/node .
+        
+deploy:
+  provider: heroku
+  api_key: $HERKOKU_API_KEY
+  app: $HEROKU_APP 
+  on:
+    branch: production
+  skip_cleanup: true
