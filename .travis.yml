@@ -19,8 +19,10 @@ notifications:
 
 script:
   - npm test
+
+before_deploy:
   - docker build -t tinfa-travis-ci/node .
-        
+
 deploy:
   provider: heroku
   api_key: $HERKOKU_API_KEY
