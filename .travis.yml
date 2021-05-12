@@ -5,6 +5,9 @@ dist: focal
 language: node_js
 
 node_js:
+- 10
+- 12
+- 14
 - 15
 
 services:
@@ -13,23 +16,19 @@ services:
 notifications:
   slack:
     secure: JXWst73pN8EVGnxL5Gkg6w3lfkW8H/vkyGSIJHwgMzWHJvnykVuZF0WIFn3pCUgYIeSiyormB6jKNtE1mb3uqyLTy85/aDzH2AMubRKuzkciVWjPc4nOxO2NytIiN1AvZMdkNpacT9bdrgSInt0HNf7MQvWSvc2BefVbyWURXfPpao13E9zvp3dGOV/Y13EkEuJROf8B0zqhdMcf2rbKpkQzJxJ0Pj01bQePtGBpwBdHFev6hKj2Pq5JJRQP+oL72WCwqIQAuMmCuf4guTqKady2jgzH1iA4FblsriekpAvaEJqq02wFMQRkjAZ56J2z6alVFZdUK9eSKrQUYCb/eM0Y4/6j5m5LRzEGKZxyYNSgefvnBaxpdaqm9uxNqyeurunR3pb32bSNgtpd2q7LsiVv536ika9Hs5QHUGLh4xPJvtpuiB2ao4BddMCU8QHvAmTqlQC7Qfq9Liq7QMyGKrYWHjXJh7lfv+I4AvnLZWXO8tYfj1+8pNoyg0sAcQD/K95gNJ+RpbjVbf9B1NvDB9EeDmDvw73Q7sLhtPoQUDblOapBuq/7hZll/K9EbVqFz6MJVGK9dHUBIhTYbjSJPt3yeFFfHMcR/7+L/k/cBTUt+hcjq5E0ldJan2Ro8v0otREcoTX9mfGHnD6zY14SCi4GamIRfHWrVaANUfZAOEc=
+    
+script: npm test
 
 jobs:
   include:
-    - stage: test
-      script: npm test
-      node_js:
-        - 10
-        - 12
-        - 14
-        - 15
-    - stage: deploy
-      script: skip
-      deploy:
-        provider: heroku
-        api_key:
-          secure: UKpa6Zn9Y4s40P3ba3GGM7Fnrp2ReiGKBo4ABUkwAbdwJTYxNZq8BCfQReNMq/sO3/6y4xf9KIErmz0vd2RLWc9AaCPZJJlbvtnWn6qApLkAjij271LU9dNHXht/BxJKOhLI/0Onw3FQnOgZuOZjREvTWe6E2ntW+iiqNp29Fh0o0RGxM1DJGiGRomwqIZJj2lCEmhcHx0IaHQzT58/VPjp4KAzOmVznXL5oUgTQfRMbVOjtOZrkK2GQ5FVYSk4e7GFC3ecGi5C1Wzk+Z707qB9GRv0HzF4fVUWJ7o832e6r4s46BVZN1ee2KzimHwH0yIsq6qvjt8e+aIvx4Xkgjq3YnKsp1DIuoVYDCaIqXx/0rXeo/BktCQgzOvTezwYyBJVzp2DvSfUkuUIYhL44hd70fwd68cQfdKaiUGfJy1awgbn+CngsVRlORTqRC+b9CLEgp3OkJRQuMm59vgoPegM0ZKDuWji17fWp3GPYiCINi8yfLmJT1vvT8wnpsmWW1AAh0TiRWi+cqhX6LI8jkoiiyOy4zclpRq3yrrS92d0RZWxXi/UDdGhrFd/xFOjrtc2MGBLLPgLzDy4Yr2/ac12xjxMT/G4f+hyYIFFwgluM2w64QBydH3ST2F0G10CRx86U2pqPic3kaphC8qtcZOFQLbcaWP8tQimIMHZmx8Y=
-        app: tinfa-travis-ci
-        on:
-          branch: production
-        skip_cleanup: true
+  - stage: deploy
+    script: skip
+    deploy:
+      node_js: 15
+      provider: heroku
+      api_key:
+        secure: UKpa6Zn9Y4s40P3ba3GGM7Fnrp2ReiGKBo4ABUkwAbdwJTYxNZq8BCfQReNMq/sO3/6y4xf9KIErmz0vd2RLWc9AaCPZJJlbvtnWn6qApLkAjij271LU9dNHXht/BxJKOhLI/0Onw3FQnOgZuOZjREvTWe6E2ntW+iiqNp29Fh0o0RGxM1DJGiGRomwqIZJj2lCEmhcHx0IaHQzT58/VPjp4KAzOmVznXL5oUgTQfRMbVOjtOZrkK2GQ5FVYSk4e7GFC3ecGi5C1Wzk+Z707qB9GRv0HzF4fVUWJ7o832e6r4s46BVZN1ee2KzimHwH0yIsq6qvjt8e+aIvx4Xkgjq3YnKsp1DIuoVYDCaIqXx/0rXeo/BktCQgzOvTezwYyBJVzp2DvSfUkuUIYhL44hd70fwd68cQfdKaiUGfJy1awgbn+CngsVRlORTqRC+b9CLEgp3OkJRQuMm59vgoPegM0ZKDuWji17fWp3GPYiCINi8yfLmJT1vvT8wnpsmWW1AAh0TiRWi+cqhX6LI8jkoiiyOy4zclpRq3yrrS92d0RZWxXi/UDdGhrFd/xFOjrtc2MGBLLPgLzDy4Yr2/ac12xjxMT/G4f+hyYIFFwgluM2w64QBydH3ST2F0G10CRx86U2pqPic3kaphC8qtcZOFQLbcaWP8tQimIMHZmx8Y=
+      app: tinfa-travis-ci
+      on:
+        branch: production
+      skip_cleanup: true
