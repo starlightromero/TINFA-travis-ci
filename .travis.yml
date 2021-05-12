@@ -5,9 +5,6 @@ dist: focal
 language: node_js
 
 node_js:
-- 10
-- 12
-- 14
 - 15
 
 services:
@@ -21,6 +18,11 @@ jobs:
   include:
     - stage: test
       script: npm test
+      node_js:
+        - 10
+        - 12
+        - 14
+        - 15
     - stage: deploy
       script: skip
       deploy:
